@@ -11,12 +11,17 @@ It tracks near-expiry stock, uses AI to match these products with bulk buyers li
 - Responsive design (mobile/tablet-friendly)
 - Toast notifications for all major actions
 
-  How It Works:
+**How It Works:
 1️⃣ Detect Near-Expiry Products using Walmart’s ERP and POS data.
+
 2️⃣ Match Bulk Buyers via AI based on past purchase behavior or business sign-ups.
+
 3️⃣ Apply Dynamic Discounts—the closer to expiry, the bigger the deal.
+
 4️⃣ Enable Quick B2B Orders through Walmart’s app or portal.
+
 5️⃣ Deliver Fast using Walmart GoLocal or offer in-store pickup.
+
 
 
 ## Tech Stack
