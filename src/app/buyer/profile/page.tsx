@@ -2,6 +2,14 @@
 import { useState } from "react";
 import { useToast } from "@/components/ToastContext";
 
+type Profile = {
+  business_name: string;
+  type: string;
+  location: string;
+  gst_id: string;
+  notifications: string[];
+};
+
 const initialProfile = {
   business_name: "Sunrise Restaurant",
   type: "Restaurant",
@@ -20,14 +28,14 @@ const mockNotifications = [
 
 export default function ProfilePage() {
   const { showToast } = useToast();
-  const [profile, setProfile] = useState(initialProfile);
+  const [profile, setProfile] = useState<Profile>(initialProfile);
   const [editing, setEditing] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginName, setLoginName] = useState("");
   const [loginCode, setLoginCode] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   }
   function handleCategoryToggle(cat: string) {

@@ -2,9 +2,11 @@ import React, { useRef, useState } from "react";
 import Papa from "papaparse";
 import { useToast } from './ToastContext';
 
+type InventoryRow = Record<string, string>;
+
 export default function InventoryUpload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [parsedData, setParsedData] = useState<any[]>([]);
+  const [parsedData, setParsedData] = useState<InventoryRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
 
@@ -15,7 +17,7 @@ export default function InventoryUpload() {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        setParsedData(results.data as any[]);
+        setParsedData(results.data as InventoryRow[]);
         setError(null);
       },
       error: (err) => setError(err.message),

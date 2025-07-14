@@ -4,6 +4,18 @@ import ProductCard from "@/components/ProductCard";
 import { useCart } from "@/components/CartContext";
 import { useSearchParams, useRouter } from "next/navigation";
 
+type Product = {
+  id: string;
+  product_name: string;
+  sku: string;
+  expiry_date: string;
+  quantity: number;
+  price: number;
+  category: string;
+  min_quantity?: number;
+  image: string;
+};
+
 async function fetchInventory() {
   const res = await fetch("/api/inventory");
   if (!res.ok) throw new Error("Failed to fetch inventory");
@@ -20,12 +32,12 @@ export default function DealsPage() {
   const router = useRouter();
   const category = searchParams.get("category");
 
-  function handleClaim(product: any, qty: number) {
-    addToCart({ ...product, quantity: qty });
+  function handleClaim(product: Product, qty: number) {
+    addToCart({ ...product, quantity: qty, image: product.image });
     alert(`Added ${qty} × ${product.product_name} to cart!`);
   }
 
-  const filtered = category && data ? data.filter((p: any) => p.category === category) : data;
+  const filtered = category && data ? data.filter((p: Product) => p.category === category) : data;
 
   return (
     <main className="p-8">
@@ -45,7 +57,7 @@ export default function DealsPage() {
       {isLoading && <div>Loading deals...</div>}
       {error && <div className="text-red-600">Error loading deals.</div>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filtered && filtered.map((product: any) => (
+        {filtered && filtered.map((product: Product) => (
           <ProductCard
             key={product.id}
             {...product}

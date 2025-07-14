@@ -19,6 +19,24 @@ async function fetchBuyers() {
   return res.json();
 }
 
+type Product = {
+  id: string;
+  product_name: string;
+  sku: string;
+  expiry_date: string;
+  quantity: number;
+  price: number;
+  category: string;
+};
+
+type Buyer = {
+  id: string;
+  business_name: string;
+  type: string;
+  location: string;
+  gst_id: string;
+};
+
 export default function AdminDashboard() {
   const { showToast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -76,7 +94,7 @@ export default function AdminDashboard() {
     );
   }
 
-  const totalQuantity = inventory?.reduce((sum: number, p: any) => sum + p.quantity, 0) ?? 0;
+  const totalQuantity = inventory?.reduce((sum: number, p: Product) => sum + p.quantity, 0) ?? 0;
 
   return (
     <main className="space-y-10">
@@ -112,7 +130,7 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              {inventory && inventory.map((p: any) => (
+              {inventory && inventory.map((p: Product) => (
                 <tr key={p.id} className="hover:bg-blue-50">
                   <td className="px-4 py-2">{p.product_name}</td>
                   <td className="px-4 py-2">{p.sku}</td>
@@ -153,7 +171,7 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              {buyers && buyers.map((b: any) => (
+              {buyers && buyers.map((b: Buyer) => (
                 <tr key={b.id} className="hover:bg-blue-50">
                   <td className="px-4 py-2">{b.business_name}</td>
                   <td className="px-4 py-2">{b.type}</td>
